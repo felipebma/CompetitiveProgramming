@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+
+#define endl "\n"
+using namespace std;
+
+int main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	vector<long long> fats;
+	long long x=1;
+	fats.push_back(1);
+	for(int i=1;i<=20;i++){
+		x*=i;
+		fats.push_back(x);
+	}
+	int casos;
+	cin >> casos;
+	for(int caso=1;caso<=casos;caso++){
+		cin>>x;
+		stack<int> stack;
+		for(int i=20;i>=0&&x>0;i--){
+			if(x>=fats[i]){
+				stack.push(i);
+				x-=fats[i];
+			}
+		}
+		cout << "Case " << caso << ": ";
+		if(stack.empty()||x>0){
+			cout << "impossible" << endl;
+		}else{
+			cout<<stack.top()<<"!";
+			stack.pop();
+			while(!stack.empty()){
+				cout << "+" << stack.top() << "!";
+				stack.pop();
+			}
+			cout << endl;
+		}
+	}
+	return 0;
+}

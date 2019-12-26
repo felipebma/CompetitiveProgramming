@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+
+#define endl '\n'
+using namespace std;
+
+int main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int n, flo,bee,a,b, rb=-1,rf=-1;
+	cin >> n >> flo >> bee;
+	vector<set<int>> graph(n+1);
+	while(cin >> a >> b){
+		graph[a].insert(b);
+		graph[b].insert(a);
+	}
+	vector<bool> v(n+1);
+	fill(v.begin(),v.end(),false);
+	
+	queue<pair<int,int>> q;
+	for(auto i:graph[flo]){
+		q.push(make_pair(i,i));
+		if(i==bee){
+			rf=bee;
+			rb=flo;
+			while(!q.empty()) q.pop();
+			break;
+		}
+	}
+	
+	while(!q.empty()){
+		a = q.front().first;
+		b = q.front().second;
+		v[a]=true;
+		for(auto i:graph[a]){
+			if(v[i]) continue;
+			q.push(make_pair(i,b));
+			if(i==bee){
+				rf=b;
+				rb=a;
+				while(!q.empty()) q.pop();
+				break;
+			}
+		}
+		if(!q.empty())
+		q.pop();	
+	}
+	graph[flo].erase(rf);
+	graph[bee].erase(rb);
+	fill(v.begin(),v.end(),false);
+	queue<int> q2;
+	// bfs in flo;
+	int contf=0;
+	q2.push(flo);
+	while(!q2.empty()){
+		v[q2.front()]=true;
+		contf++;
+		for(auto i:graph[q2.front()]){
+			if(!v[i]) q2.push(i);
+		}
+		q2.pop();
+	}
+	
+	// bfs in bee;
+	int contb=0;
+	q2.push(bee);
+	while(!q2.empty()){
+		v[q2.front()]=true;
+		contb++;
+		for(auto i:graph[q2.front()]){
+			if(!v[i]) q2.push(i);
+		}
+		q2.pop();
+	}
+	
+	cout << (n*(n-1)-(contf*contb)) << endl;
+	
+	return 0;
+}

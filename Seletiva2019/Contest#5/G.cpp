@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+#define max(a,b) (a>b)?a:b
+#define min(a,b) (a<b)?a:b
+using namespace std;
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int m,n;
+	while(cin >> m >> n){
+		if(m==0 && n==0) break;
+		vector<vector<int>> area;
+		area.assign(m,vector<int>(n));
+		for(int i=0;i<m;i++){
+			for(int j=0;j<n;j++){
+				cin >> area[i][j];
+				area[i][j] = (area[i][j]+1)%2;
+			}
+		}
+		vector<vector<pair<int,int>>> dp;
+		int best =0;
+		dp.assign(m,vector<pair<int,int>>(n,make_pair(0,0)));
+		dp[0][0] = make_pair(area[0][0],area[0][0]);
+		for(int i=1;i<n;i++){
+			if(area[0][i]==1){
+				dp[0][i] = make_pair(1, dp[0][i-1].second+1);	
+				best=max(best,dp[0][i].second);
+			}
+				
+		} 
+		for(int i=1;i<m;i++){
+			if(area[i][0]==1){
+				dp[i][0] = make_pair(dp[i-1][0].first+1,1);	
+				best=max(best,dp[i][0].first);
+			}
+		}
+		for(int i=1;i<m;i++){
+			for(int j=1;j<n;j++){
+				if(area[i][j]=1){
+					dp[i][j].first = min(dp[i-1][j-1].first+1, min(dp[i-1][j].first+1, dp[i][j-1].first));
+					dp[i][j].second = min(dp[i-1][j-1].second+1, min(dp[i-1][j].second, dp[i][j-1].second));
+					best = max(best,dp[i][j].first*dp[i][j].second);
+				}
+			}
+		}
+		cout << best << endl;
+		
+	}
+	return 0;
+}

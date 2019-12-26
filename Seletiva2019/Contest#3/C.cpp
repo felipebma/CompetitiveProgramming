@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+
+#define endl '\n'
+using namespace std;
+
+int main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int x ,y ,z, a, b, c, aux, tot, tot2;
+	cin >> x >> y >> z >> a >> b >> c;
+	tot= a+b+c;
+	tot2= x+y+z;
+	if(tot2>tot){
+		cout << "NO" << endl;
+		return 0;
+	}
+	a-=x;
+	if(a<0){
+		cout << "NO" << endl;
+		return 0;
+	}	
+	aux=min(a,y);
+	a-=aux;
+	y-=aux;
+	b-=y;
+	if(b<0){
+		cout << "NO" << endl;
+		return 0;
+	}
+	cout << "YES" << endl;
+	return 0;
+}

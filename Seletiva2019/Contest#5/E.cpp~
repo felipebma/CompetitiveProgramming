@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+using namespace std;
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int n;
+	cin >> n;
+	int l=0, r=n-1;
+	char c;
+	vector<char> str;
+	while(n--){
+		cin >> c;
+		str.push_back(c);
+	}
+	int cont=0;
+	while(l<r){
+		if(str[l]==str[r]){
+			l++;r++;
+		}else{
+			cont++;
+			l+=cont&1;
+			if(cont%2==0) r--;
+		}
+	}
+	cout << cont;
+	return 0;
+}

@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define endl '\n'
+using namespace std;
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int n, aux;
+	cin >> n;
+	vector<priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>> c(4);
+	vector<int> prices;
+	vector<int> front;
+	vector<int> back;
+	for (int i = 0; i < n; i += 1){
+		cin >> aux;
+		prices.push_back(aux);
+	}
+	for (int i = 0; i < n; i += 1){
+		cin >> aux;
+		front.push_back(aux);
+	}
+	for (int i = 0; i < n; i += 1){
+		cin >> aux;
+		back.push_back(aux);
+	}
+	for (int i = 0; i < n; i += 1){
+		c[front[i]].push(make_pair(prices[i],i));
+		c[back[i]].push(make_pair(prices[i],i));
+	}
+	int m;
+	vector<bool> v(n);
+	fill(v.begin(),v.end(),false);
+	cin >> m;
+	while(m--){
+		cin >> aux;
+		while(!c[aux].empty() && v[c[aux].top().second]) c[aux].pop();
+		if(c[aux].empty()){
+			cout << -1 << " ";
+		}else{
+			cout << c[aux].top().first << " ";
+			v[c[aux].top().second]=true;
+		}
+	}
+	
+	return 0;
+}

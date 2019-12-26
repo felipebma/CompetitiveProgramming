@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+#define pb(a) push_back(a)
+#define mp(a,b) make_pair(a,b)
+#define max(a,b) (a>b)?a:b
+#define min(a,b) (a<b)?a:b
+using namespace std;
+
+int ms = 1e6+2;
+vector<bool> sieve(ms,true);
+
+void make_sieve(){
+	sieve[0]=false;
+	sieve[1]=false;
+	for(int i=2;i<ms;i++){
+		if(sieve[i]){
+			int aux=2*i;
+			while(aux<ms){
+				sieve[aux]=false;
+				aux+=i;
+			}
+		}
+	}
+}
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	make_sieve();
+	int nCases, a, b;
+	cin >> nCases;
+	while(nCases--){
+		cin >> a >> b;
+		for(int i=a;i<=b;i++){
+			int prime=true;
+			if(i<ms){
+				prime = sieve[i];
+			}else{
+				for(int j=2;j<=sqrt(i)&&prime;j++){
+					prime = !(sieve[j] && i%j==0);
+				}
+			}
+			if(prime) cout << i << endl;
+		}
+		cout << endl;
+	}
+	return 0;
+}

@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+#define pb(a) push_back(a)
+#define mp(a,b) make_pair(a,b)
+#define max(a,b) (a>b)?a:b
+#define min(a,b) (a<b)?a:b
+using namespace std;
+
+int gcd(int a, int b){
+	int min = min(a,b), max = max(a,b);
+	if(max%min==0) return min;
+	return gcd(min,max%min);
+}
+
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int n,m,q, mdc, s1,s2,e1,e2;
+	cin >> m >> n >> q;
+	mdc = gcd(n,m);
+	m/=mdc;
+	n/=mdc;
+	while(q--){
+		cin >> s1 >> e1 >> s2 >> e2;
+		e1 = (s1==1)?((e1-1)/m):((e1-1)/n);
+		e2 = (s2==1)?((e2-1)/m):((e2-1)/n);
+		if(e1==e2){
+			cout << "YES" << endl;
+		}else{
+			cout << "NO" << endl;
+		}
+	}
+	return 0;
+}

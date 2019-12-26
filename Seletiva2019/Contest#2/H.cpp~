@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+
+#define endl '\n'
+using namespace std;
+
+int main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int nSeats, width;
+	string s;
+	priority_queue<pair<int,int>> extro;
+	priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> intro;
+	cin >> nSeats;
+	for (int i = 1; i < nSeats+1; i += 1){
+		cin >> width;
+		intro.push(make_pair(width,i));
+	}	
+	cin >> s;
+	pair<int,int> aux;
+	for(char c:s){
+		if(c=='0'){
+			aux = intro.top();
+			intro.pop();
+			extro.push(aux);
+		}else{
+			aux = intro.top();
+			intro.pop();
+		}
+		cout << aux.second << " ";
+	}
+	
+	return 0;
+}

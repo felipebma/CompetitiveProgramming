@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+using namespace std;
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int n,q,c, x, y, s;
+	cin >> n >> q >> c;
+	vector<vector<vector<int>>> dp;
+	dp.assign(101,vector<vector<int>>(101,vector<int>(c+1,0)));
+	while(n--){
+		cin >> x >> y >> s;
+		for(int i=0;i<c+1;i++){
+			dp[x][y][i] += (s+i)%(c+1);
+		}
+	}
+	for(int i=1;i<101;i++){
+		for(int j=1;j<101;j++){
+			for(int k=0;k<c+1;k++){
+				dp[i][j][k]+=dp[i-1][j][k]+dp[i][j-1][k]-dp[i-1][j-1][k];
+			}
+		}
+	}
+	
+	int x1,y1,x2,y2, res, t;
+	while(q--){
+		cin >> t >> x1 >> y1 >> x2 >> y2;
+		res = dp[x2][y2][t%(c+1)]-dp[x1-1][y2][t%(c+1)]-dp[x2][y1-1][t%(c+1)] + dp[x1-1][y1-1][t%(c+1)];
+		cout << res << endl;
+	}
+	return 0;
+}

@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	ios::sync_with_stdio(0),cin.tie(0);
+	int n,k, aux;
+	cin >> n >> k;
+	while(k>0){
+		cout << "k " << k << endl; 
+		if(n%10!=0){
+			aux = min(k,n%10);
+			k-=aux;
+			n-=aux;
+		}else{
+			k--;
+			n/=10;
+		}
+	}
+	cout << n << endl;
+	return 0;
+}
