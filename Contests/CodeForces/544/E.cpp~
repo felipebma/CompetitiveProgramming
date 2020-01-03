@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+#define pb(a) push_back(a)
+#define mp(a,b) make_pair(a,b)
+#define max(a,b) ((a>b)?a:b)
+#define min(a,b) ((a<b)?a:b)
+using namespace std;
+ 
+int lim = 1e9+3; 
+
+set<int> diff(set<int> &a, set<int> &b){
+	set<int> aux;
+	for(auto i:a) if(b.count(i)) aux.insert(i);
+	return aux;
+}
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int n, k, aux,max=0,cont=0;
+	priority_queue<pair<int,set<int>>> heap;
+	cin >> n >> k;
+	if(n<=k){
+		cout << n << endl;
+		return 0;
+	}
+	vector<int> arr;
+	set<int> used;
+	for(int i=0;i<n;i++){
+		cin >> aux;
+		arr.pb(aux);
+	}
+	sort(arr.begin(),arr.end());
+	int l=0,r=0;
+	while(r<n){
+		if(arr[r]-arr[l]>5){
+			l++;
+		}else{
+			while(arr[r]-arr[l]<=5 && r<n) r++;
+			r--;
+			heap.push(mp(r-l+1,mp(l,r)));
+			r++;
+		}
+	}	
+	
+	
+}
