@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+#define pb(a) push_back(a)
+#define mp(a,b) make_pair(a,b)
+#define max(a,b) ((a>b)?a:b)
+#define min(a,b) ((a<b)?a:b)
+using namespace std;
+
+vector<int> arr; 
+
+int solve(int i, int h, int time, int l, int r){
+	int aux = (time + arr[i] - 1)%h; 
+	if(i==arr.size()-1){
+		return (aux<=r&&(aux>l-2))?1:0;
+	}
+	int normal = ((aux+1)%h<=r && (aux+1)%h>=l)?1:0,minus = ((aux)%h<=r && (aux)%h>=l)?1:0;
+	return max(normal+solve(i+1,h,(aux+1)%h,l,r),minus+solve(i+1,h,aux,l,r));
+}
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int n, h, l, r, aux;
+	cin >> n >> h >> l >> r;
+	while(n--){
+		cin >> aux;
+		arr.pb(aux);
+	}
+	cout << solve(0,h,0,0);
+	return 0;
+}

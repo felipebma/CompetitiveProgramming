@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define int ll
+#define endl '\n'
+#define pb(a) push_back(a)
+#define mp(a,b) make_pair(a,b)
+#define max(a,b) ((a>b)?a:b)
+#define min(a,b) ((a<b)?a:b)
+using namespace std;
+ 
+void solve(int nCase){
+	int n,k,p,sum=0,aux;
+	cin >> n >> k >> p;
+	int total = n*k;
+	vector<stack<int>> arr(n,stack<int>());
+	for(int i=0;i<n;i++){
+		for(int j=0;j<k;j++){
+			cin >> aux;
+			sum+=aux;
+			arr[i].push(aux);
+		}
+	}
+	while(total>p){
+		int worst=101,pos=-1;
+		for(int i=0;i<n;i++){
+			if(!arr[i].empty() && arr[i].top()<worst){
+				worst = arr[i].top();
+				pos = i;
+			}
+		}
+		total--;
+		sum-=worst;
+		arr[pos].pop();
+	}
+	cout << "Case #" << nCase << ": " << sum << endl;
+} 
+
+int32_t main(){
+	ios::sync_with_stdio(0);cin.tie(0);
+	int nCases;
+	cin >> nCases;
+	for(int i=0;i<nCases;i++){
+		solve(i);	
+	}
+	return 0;
+}
